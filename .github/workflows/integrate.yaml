@@ -45,6 +45,11 @@ jobs:
 
     - name: Output cluster debug log
       if: failure()
-      run: "cat ./tests/*.log"
+      run: |
+          pwd
+          docker ps
+          df -h
+          free -h
+          "cat ./tests/*.log"
       working-directory: ${{ github.workspace  }}/go/src/github.com/${{ github.repository  }}
 
