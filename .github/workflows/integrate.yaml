@@ -25,7 +25,7 @@ jobs:
         path: go/src/github.com/${{ github.repository  }}
 
     - name: Build the docker-compose stack
-      run: ./docker/up.sh --daemon
+      run: TIUP_MIRRORS=${{ github.workspace   }}/go/src/github.com/${{ github.repository  }} ./docker/up.sh --daemon
       working-directory: ${{ github.workspace  }}/go/src/github.com/${{ github.repository  }}
 
     - name: Check running containers
@@ -39,3 +39,9 @@ jobs:
         docker exec  tiup-cluster-control bash /tiup-cluster/tests/run.sh
         # source ~/.bashrc
         # ./tests/run.sh
+
+    - name: Output cluster debug log
+      if: failure()
+      run: "cat ./tests/*.log"
+      working-directory: ${{ github.workspace  }}/go/src/github.com/${{ github.repository  }}
+
