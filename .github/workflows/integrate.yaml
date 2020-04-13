@@ -25,7 +25,7 @@ jobs:
         path: go/src/github.com/${{ github.repository  }}
 
     - name: Build the docker-compose stack
-      run: TIUP_MIRRORS=${{ github.workspace   }}/go/src/github.com/${{ github.repository  }} ./docker/up.sh --daemon
+      run: TIUP_CLUSTER_ROOT=${{ github.workspace   }}/go/src/github.com/${{ github.repository  }} ./docker/up.sh --daemon
       working-directory: ${{ github.workspace  }}/go/src/github.com/${{ github.repository  }}
 
     - name: Check running containers
